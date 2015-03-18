@@ -22,7 +22,12 @@ module.exports = function(argv, app, events, engine, globalConfig, tasks) {
         cmd.push(flag + opt);
       }
       else {
-        cmd.push('--' + opt + '=' + argv[opt]);
+        if (opt === 'e') {
+          cmd.push('-' + opt + ' ' + argv[opt]);
+        }
+        else {
+          cmd.push('--' + opt + '=' + argv[opt]);
+        }
       }
     }
     return cmd;
@@ -33,7 +38,7 @@ module.exports = function(argv, app, events, engine, globalConfig, tasks) {
    **/
   var runRsyncCMD = function(cmd, done) {
     engine.run(
-      'kalabox/git:stable',
+      'kalabox/rsync:stable',
       cmd,
       {
         Env: [
