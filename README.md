@@ -32,14 +32,16 @@ Run any rsync command you normally would but start it with `kbox`. Run it from i
 Examples
 
 ```
-# Returns the version of git, must run from a directory that contains a kalabox app
-kbox git version
 
-# Clones a repo into /data for a D7 app
-kbox pressflow7 git clone http://github.com/kalamuna/playbox.git ./
+# Download Drupal files directory from pantheon
+export ENV=dev
+# Usually dev, test, or live
+export SITE=[YOUR SITE UUID]
+# Site UUID from dashboard URL: https://dashboard.pantheon.io/sites/<UUID>
 
-# Pulls down the latest code, must run from a directory that contains a kalabox app
-kbox git pull
+# To Download
+kbox rsync -rlvz --size-only --ipv4 --progress -e 'ssh -p 2222' $ENV.$SITE@appserver.$ENV.$SITE.drush.in:files/ sites/default/files
+
 ```
 
 ## Other Resources
