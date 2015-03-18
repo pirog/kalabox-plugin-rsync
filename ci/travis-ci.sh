@@ -15,8 +15,8 @@ before-install() {
   # Add our key
   if ([ $TRAVIS_BRANCH == "master" ] || [ ! -z "$TRAVIS_TAG" ]) &&
     [ $TRAVIS_PULL_REQUEST == "false" ] &&
-    [ $TRAVIS_REPO_SLUG == "kalabox/kalabox-plugin-git" ]; then
-      openssl aes-256-cbc -K $encrypted_dd11ce1f2e12_key -iv $encrypted_dd11ce1f2e12_iv -in ci/travis.id_rsa.enc -out $HOME/.ssh/travis.id_rsa -d
+    [ $TRAVIS_REPO_SLUG == "kalabox/kalabox-plugin-rsync" ]; then
+      openssl aes-256-cbc -K $encrypted_f52af7219fe7_key -iv $encrypted_f52af7219fe7_iv -in ci/travis.id_rsa.enc -out $HOME/.ssh/travis.id_rsa -d
   fi
 }
 
@@ -61,7 +61,7 @@ after-script() {
 after-success() {
   if ([ $TRAVIS_BRANCH == "master" ] || [ ! -z "$TRAVIS_TAG" ]) &&
     [ $TRAVIS_PULL_REQUEST == "false" ] &&
-    [ $TRAVIS_REPO_SLUG == "kalabox/kalabox-plugin-git" ]; then
+    [ $TRAVIS_REPO_SLUG == "kalabox/kalabox-plugin-rsync" ]; then
 
     # DO VERSION BUMPING FOR KALABOX/KALABOX
     COMMIT_MESSAGE=$(git log --format=%B -n 1)

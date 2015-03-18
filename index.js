@@ -28,7 +28,6 @@ module.exports = function(argv, app, events, engine, globalConfig, tasks) {
     return cmd;
   };
 
-
   /**
    * Runs a git command on the app data container
    **/
