@@ -6,39 +6,11 @@ var PLUGIN_NAME = 'kalabox-plugin-rsync';
 
 module.exports = function(kbox) {
 
-  var argv = kbox.core.deps.lookup('argv');
   var events = kbox.core.events;
   var engine = kbox.engine;
   var globalConfig = kbox.core.deps.lookup('globalConfig');
 
   kbox.whenApp(function(app) {
-
-    // Helpers
-    /**
-     * Returns an arrayed set of git-ready commands
-     **/
-    var getCmd = function() {
-      // @todo: not sure if the command structure is different on D7 vs D6
-      // Grab our options from config so we can filter these out
-      var cmd = argv._;
-      delete argv._;
-
-      for (var opt in argv) {
-        if (argv[opt] === true) {
-          var flag = (opt.length === 1) ? '-' : '--';
-          cmd.push(flag + opt);
-        }
-        else {
-          if (opt === 'e') {
-            cmd.push('-' + opt + ' ' + argv[opt]);
-          }
-          else {
-            cmd.push('--' + opt + '=' + argv[opt]);
-          }
-        }
-      }
-      return cmd;
-    };
 
     /**
      * Runs a git command on the app data container
@@ -89,10 +61,11 @@ module.exports = function(kbox) {
     kbox.tasks.add(function(task) {
       task.path = [app.name, 'rsync'];
       task.description = 'Run rsync commands.';
+      task.kind = 'delegate';
       task.func = function(done) {
         // We need to use this faux bin until the resolution of
         // https://github.com/syncthing/syncthing/issues/1056
-        var cmd = getCmd();
+        var cmd = this.argv;
         runRsyncCMD(cmd, done);
       };
     });
