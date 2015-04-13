@@ -65,7 +65,7 @@ module.exports = function(kbox) {
       task.func = function(done) {
         // We need to use this faux bin until the resolution of
         // https://github.com/syncthing/syncthing/issues/1056
-        var cmd = this.argv;
+        var cmd = this.payload;
         runRsyncCMD(cmd, done);
       };
     });
