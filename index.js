@@ -17,7 +17,7 @@ module.exports = function(kbox) {
      **/
     var runRsyncCMD = function(cmd, done) {
       engine.run(
-        'kalabox/rsync:stable',
+        'rsync',
         cmd,
         {
           Env: [
@@ -40,19 +40,9 @@ module.exports = function(kbox) {
     events.on('post-install', function(app, done) {
       // If profile is set to dev build from source
       var opts = {
-        name: 'kalabox/rsync:stable',
-        build: false,
-        src: ''
+        name: 'rsync',
+        srcRoot: path.resolve(__dirname)
       };
-      if (globalConfig.profile === 'dev') {
-        opts.build = true;
-        opts.src = path.resolve(
-          __dirname,
-          'dockerfiles',
-          'rsync',
-          'Dockerfile'
-        );
-      }
       engine.build(opts, done);
     });
 
