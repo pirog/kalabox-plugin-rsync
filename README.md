@@ -34,9 +34,9 @@ Examples
 ```
 
 # Download Drupal files directory from pantheon
-export ENV=dev
+export ENV=dev # use set ENV=dev on windows
 # Usually dev, test, or live
-export SITE=[YOUR SITE UUID]
+export SITE=[YOUR SITE UUID] #use set SITE=[YOUR SITE UUID] on windows
 # Site UUID from dashboard URL: https://dashboard.pantheon.io/sites/<UUID>
 
 # To Download
