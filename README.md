@@ -31,16 +31,31 @@ Run any rsync command you normally would but start it with `kbox`. Run it from i
 
 Examples
 
+### UNIX
 ```
 
 # Download Drupal files directory from pantheon
-export ENV=dev # use set ENV=dev on windows
+export ENV=dev
 # Usually dev, test, or live
-export SITE=[YOUR SITE UUID] #use set SITE=[YOUR SITE UUID] on windows
+export SITE=[YOUR SITE UUID]
 # Site UUID from dashboard URL: https://dashboard.pantheon.io/sites/<UUID>
 
 # To Download
 kbox rsync -rlvz --size-only --ipv4 --progress -e 'ssh -p 2222' $ENV.$SITE@appserver.$ENV.$SITE.drush.in:files/ sites/default/files
+
+```
+
+### Windows
+```
+
+# Download Drupal files directory from pantheon
+set ENV=dev
+# Usually dev, test, or live
+set SITE=[YOUR SITE UUID]
+# Site UUID from dashboard URL: https://dashboard.pantheon.io/sites/<UUID>
+
+# To Download
+kbox rsync -rlvz --size-only --ipv4 --progress -e "ssh -p 2222" %ENV%.%SITE%@appserver.%ENV%.%SITE%.drush.in:files/ sites/default/files
 
 ```
 
