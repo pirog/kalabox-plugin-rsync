@@ -1,6 +1,7 @@
 'use strict';
 
 var path = require('path');
+var _ = require('lodash');
 
 var PLUGIN_NAME = 'kalabox-plugin-rsync';
 
@@ -16,10 +17,23 @@ module.exports = function(kbox) {
      * Runs a git command on the app data container
      **/
     var runRsyncCMD = function(cmd, done) {
+      // Run the git command in the correct directory in the container if the
+      // user is somewhere inside the code directory on the host side.
+      // @todo: consider if this is better in the actual engine.run command
+      // vs here.
+      var workingDirExtra = '';
+      var cwd = process.cwd();
+      var codeRoot = app.config.codeRoot;
+      if (_.startsWith(cwd, codeRoot)) {
+        workingDirExtra = cwd.replace(codeRoot, '');
+      }
+      var workingDir = '/data' + workingDirExtra;
+
       engine.run(
         'rsync',
         cmd,
         {
+          WorkingDir: workingDir,
           Env: [
             'APPNAME=' +  app.name,
             'APPDOMAIN=' +  app.domain
