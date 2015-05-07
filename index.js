@@ -27,7 +27,7 @@ module.exports = function(kbox) {
       if (_.startsWith(cwd, codeRoot)) {
         workingDirExtra = cwd.replace(codeRoot, '');
       }
-      var workingDir = '/data' + workingDirExtra;
+      var workingDir = '/code' + workingDirExtra;
 
       engine.run(
         'rsync',
