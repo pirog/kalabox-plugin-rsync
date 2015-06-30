@@ -29,11 +29,13 @@ In order for your app to use the plugin you will also need to inform the app of 
 
 Run any rsync command you normally would but start it with `kbox`. Run it from inside directory that contains the app you want to run it against or pass in the appname first if you are outside that directory like `kbox appname rysnc ...`.
 
-Examples
+### Examples
 
-Pulling down files with rsync for Drupal 6+7. NOTE: for Drupal 8 you will want to use `files` instead of `sites/default/files`.
+#### Drupal 6/7
 
-### UNIX
+**For Drupal 8 you will want to use `files` instead of `sites/default/files`.**
+
+#### UNIX
 ```
 
 # Download Drupal files directory from pantheon
@@ -47,7 +49,7 @@ kbox rsync -rlvz --size-only --ipv4 --progress -e 'ssh -p 2222' $ENV.$SITE@appse
 
 ```
 
-### Windows
+#### Windows
 ```
 
 # Download Drupal files directory from pantheon
