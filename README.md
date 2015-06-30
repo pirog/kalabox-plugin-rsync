@@ -31,6 +31,8 @@ Run any rsync command you normally would but start it with `kbox`. Run it from i
 
 Examples
 
+Pulling down files with rsync for Drupal 6+7. NOTE: for Drupal 8 you will want to use `files` instead of `sites/default/files`.
+
 ### UNIX
 ```
 
@@ -58,6 +60,7 @@ set SITE=[YOUR SITE UUID]
 kbox rsync -rlvz --size-only --ipv4 --progress -e "ssh -p 2222" %ENV%.%SITE%@appserver.%ENV%.%SITE%.drush.in:files/ sites/default/files
 
 ```
+
 
 ## Other Resources
 
