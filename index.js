@@ -35,7 +35,7 @@ module.exports = function(kbox) {
       task.description = 'Run rsync commands.';
       task.kind = 'delegate';
       task.func = function(done) {
-        rsync.cmd(this.payload, done);
+        rsync.cmd(this.payload, false, done);
       };
     });
 

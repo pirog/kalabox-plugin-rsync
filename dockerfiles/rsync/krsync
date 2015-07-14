@@ -5,4 +5,8 @@
 eval `ssh-agent -s` > /dev/null
 ssh-add /ssh/.ssh/id_rsa > /dev/null
 
-rsync "$@"
+if [ "$EVAL" = true ]; then
+  eval rsync "$@"
+else
+  rsync "$@"
+fi
