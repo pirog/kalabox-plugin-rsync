@@ -13,42 +13,9 @@ module.exports = function(kbox) {
 
   kbox.whenApp(function(app) {
 
-    /**
-     * Runs a git command on the app data container
-     **/
-    var runRsyncCMD = function(cmd, done) {
-      // Run the git command in the correct directory in the container if the
-      // user is somewhere inside the code directory on the host side.
-      // @todo: consider if this is better in the actual engine.run command
-      // vs here.
-      var workingDirExtra = '';
-      var cwd = process.cwd();
-      var codeRoot = app.config.codeRoot;
-      if (_.startsWith(cwd, codeRoot)) {
-        workingDirExtra = cwd.replace(codeRoot, '');
-      }
-      var codeDir = globalConfig.codeDir;
-      var workingDir = '/' + codeDir + workingDirExtra;
-
-      engine.run(
-        'rsync',
-        cmd,
-        {
-          WorkingDir: workingDir,
-          Env: [
-            'APPNAME=' +  app.name,
-            'APPDOMAIN=' +  app.domain
-          ],
-          HostConfig: {
-            VolumesFrom: [app.dataContainerName]
-          }
-        },
-        {
-          Binds: [app.config.homeBind + ':/ssh:rw']
-        },
-        done
-      );
-    };
+    // Grab the clients
+    var Rsync = require('./lib/rsync.js');
+    var rsync = new Rsync(kbox, app);
 
     // Events
     // Install the util container for our things
@@ -68,10 +35,7 @@ module.exports = function(kbox) {
       task.description = 'Run rsync commands.';
       task.kind = 'delegate';
       task.func = function(done) {
-        // We need to use this faux bin until the resolution of
-        // https://github.com/syncthing/syncthing/issues/1056
-        var cmd = this.payload;
-        runRsyncCMD(cmd, done);
+        rsync.cmd(this.payload, done);
       };
     });
 
