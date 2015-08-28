@@ -11,4 +11,6 @@ COPY ssh-config /root/.ssh/config
 
 RUN chmod +x /usr/local/bin/krsync
 
+ENV SSH_KEY id_rsa
+
 ENTRYPOINT ["/usr/local/bin/krsync"]
