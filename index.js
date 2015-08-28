@@ -11,7 +11,7 @@ module.exports = function(kbox) {
   var engine = kbox.engine;
   var globalConfig = kbox.core.deps.lookup('globalConfig');
 
-  kbox.whenApp(function(app) {
+  kbox.ifApp(function(app) {
 
     // Grab the clients
     var Rsync = require('./lib/rsync.js');
