@@ -1,9 +1,9 @@
 #!/bin/sh
 
 # We need to do this for SSH add now as well
-if [ -f "/ssh/.ssh/{$SSH_KEY}" ]; then
+if [ -f "/ssh/.ssh/${SSH_KEY}" ]; then
   eval `ssh-agent -s` > /dev/null
-  ssh-add /ssh/.ssh/${$SSH_KEY} > /dev/null
+  ssh-add /ssh/.ssh/${SSH_KEY} > /dev/null
 fi
 
 if [ "$EVAL" = true ]; then
